@@ -25,4 +25,11 @@ public class GoController : Controller
     {
         return _goLinkService.GetAllUrls().ToArray();
     }
+
+    [HttpPost]
+    public JsonResult CreateGoLink([FromForm] GoLink goLink)
+    {
+        Console.WriteLine(goLink);
+        return Json(goLink);
+    }
 }
