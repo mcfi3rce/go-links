@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace go_links.Controllers;
+namespace GoLinks.Controllers;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,0 +1,19 @@
+version: "3.7"
+
+services: 
+  postgres:
+    image: postgres:14.4
+    container_name: golink-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      backend_services:
+        aliases:
+          - postgres.ps
+            
+networks:
+  backend_services:

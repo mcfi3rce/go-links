@@ -1,4 +1,4 @@
-namespace go_links;
+namespace GoLinks;
 
 public class WeatherForecast
 {
