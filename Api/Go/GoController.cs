@@ -13,7 +13,7 @@ public class GoController : Controller
     }
     // GET
     [HttpGet]
-    [Route("[action]/[url]")]
+    [Route("[action]")]
     public RedirectResult Index(string url)
     {
         var redirect = _goLinkService.GetUrlByName(url);
