@@ -4,16 +4,16 @@ namespace GoLinks.Api;
 
 [ApiController]
 [Route("[controller]")]
-public class GoLinkController : Controller 
+public class GoController : Controller 
 {
     private readonly GoLinkService _goLinkService;
-    public GoLinkController(GoLinkService goLinkService)
+    public GoController(GoLinkService goLinkService)
     {
         _goLinkService = goLinkService;
     }
     // GET
     [HttpGet]
-    [Route("/url/{url}")]
+    [Route("[action]/[url]")]
     public RedirectResult Index(string url)
     {
         var redirect = _goLinkService.GetUrlByName(url);

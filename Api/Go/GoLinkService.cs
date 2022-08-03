@@ -9,8 +9,8 @@ public class GoLinkService : IGoLinkService
     } 
     public string GetUrlByName(string url)
     {
-        _goLinkRepository.FindGoLinkBySource(url);
-        return $"https://{url}.com";
+        var goLink = _goLinkRepository.FindGoLinkBySource(url);
+        return goLink.target;
     }
 
     public List<GoLink> GetAllUrls()
