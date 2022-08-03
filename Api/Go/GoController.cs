@@ -27,9 +27,8 @@ public class GoController : Controller
     }
 
     [HttpPost]
-    public JsonResult CreateGoLink([FromForm] GoLink goLink)
+    public ActionResult CreateGoLink([FromBody] GoLink goLink)
     {
-        Console.WriteLine(goLink);
-        return Json(goLink);
+        return _goLinkService.CreateGoLink(goLink) ? Ok() : BadRequest();
     }
 }

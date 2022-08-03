@@ -15,7 +15,7 @@ public class GoLinkRepository : IGoLinkRepository
     
     public GoLink FindGoLinkBySource(string source)
     {
-        return _db.QueryFirst<GoLink>("SELECT * FROM go_links WHERE source = @source", new { source = source});
+        return _db.QueryFirst<GoLink>("SELECT * FROM go_links WHERE source = @source", new { source});
     }
 
     public List<GoLink> FindAll()
@@ -23,9 +23,10 @@ public class GoLinkRepository : IGoLinkRepository
         return _db.Query<GoLink>("SELECT * FROM go_links").ToList();
     }
 
-    public GoLink InsertGoLink(string userName, string source, string target)
+    public bool InsertGoLink(GoLink goLink)
     {
-        throw new NotImplementedException();
+        var result = _db.Execute("INSERT INTO go_links VALUES (@source, @target, @user_name, @date_added)", goLink);
+        return result > 0;
     }
 
     public void DeleteGoLinkBySource(string userName, string source)

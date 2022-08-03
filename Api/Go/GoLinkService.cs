@@ -26,4 +26,11 @@ public class GoLinkService : IGoLinkService
     {
         return _goLinkRepository.FindAll();
     }
+
+    public bool CreateGoLink(GoLink goLink)
+    {
+        // This is better than handing times client side 😬
+        goLink.date_added = DateTime.Now;
+        return _goLinkRepository.InsertGoLink(goLink);
+    }
 }

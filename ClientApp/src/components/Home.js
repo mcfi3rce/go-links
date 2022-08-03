@@ -1,21 +1,54 @@
 import React, { Component } from 'react';
 
-const submitData = async (event) => {
-    event.preventDefault();
+class Form extends React.Component {
+    state = { 
+        userName: 'adam_mcpherson',
+        source: '',
+        target: ''};
     
-    console.log("SUBMIT!!!");
-    const response = await fetch('go',{
-        method: 'POST',
-        body: {
-            user_name: 'adam-mcpherson',
-            source: 'lofi-girl',
-            target: 'https://www.youtube.com/watch?v=jfKfPfyJRdk&ab_channel=LofiGirl',
-            date_added: (new Date()).toLocaleDateString(),
-            date_modified: ""}
-    });
-    console.log(response.json());
-    
+    handleSubmit = async (event) => {
+        event.preventDefault();
+
+        console.log("SUBMIT!!!");
+        const response = await fetch('go',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_name: this.state.userName,
+                source: this.state.source,
+                target: this.state.target})
+        });
+        console.log(response);
+
+    };
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                Short Link
+                <input
+                    type="text"
+                    value={this.state.source}
+                    onChange={event => this.setState({ source : event.target.value })}
+                    placeholder="youtube"
+                    required
+                />
+                <br/>
+                Redirect URL
+                <input
+                    type="text"
+                    value={this.state.target}
+                    onChange={event => this.setState({ target: event.target.value })}
+                    placeholder="https://youtube.com"
+                    required
+                /> 
+                <button>Create Link</button>
+            </form>
+        );
+    }
 }
+
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -23,12 +56,8 @@ export class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Hello, world!</h1>
-          <form>
-         Where do you want to redirect to?<input/> 
-         What's your short link<input/>
-         <button onClick={submitData}>Submit</button>
-          </form>
+        <h1>Hello, shortlink world!</h1>
+          <Form />
       </div>
     );
   }
