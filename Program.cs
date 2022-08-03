@@ -1,8 +1,12 @@
+using GoLinks.Api;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<GoLinkService>();
+builder.Services.AddSingleton<GoLinkRepository>();
 
 var app = builder.Build();
 

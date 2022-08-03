@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class Urls extends Component {
+  static displayName = Urls.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { urls: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateUrlData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderUrlsTable(urls) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -24,12 +24,12 @@ export class FetchData extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {urls.map(url =>
+            <tr key={url.source}>
+              <td>{url.user_id}</td>
+              <td>{url.source}</td>
+              <td>{url.target}</td>
+              <td>{url.date_added}</td>
             </tr>
           )}
         </tbody>
@@ -40,7 +40,7 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : Urls.renderUrlsTable(this.state.urls);
 
     return (
       <div>
@@ -51,10 +51,10 @@ export class FetchData extends Component {
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+  async populateUrlData() {
+    const response = await fetch('golink');
     const data = await response.json();
     console.log(data);
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ urls: data, loading: false });
   }
 }

@@ -4,7 +4,7 @@ namespace GoLinks.Api;
 
 [ApiController]
 [Route("[controller]")]
-public class GoLinkController :  ControllerBase
+public class GoLinkController : Controller 
 {
     private readonly GoLinkService _goLinkService;
     public GoLinkController(GoLinkService goLinkService)
@@ -18,10 +18,9 @@ public class GoLinkController :  ControllerBase
     {
         var redirect = _goLinkService.GetUrlByName(url);
         return Redirect(redirect);
-    }
+    } 
     
     [HttpGet]
-    [Route("/urls")]
     public IEnumerable<GoLink>GetAllGoLinks()
     {
         return _goLinkService.GetAllUrls().ToArray();
