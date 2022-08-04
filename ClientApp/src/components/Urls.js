@@ -44,8 +44,7 @@ export class Urls extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >Existing Shortlinks</h1>
         {contents}
       </div>
     );
