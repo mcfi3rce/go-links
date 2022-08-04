@@ -16,6 +16,7 @@ public class GoLinkService : IGoLinkService
         }
         catch (Exception)
         {
+            // TODO: figure out how not to hardcode this... 
             return "https://localhost:44405/";
         }
 

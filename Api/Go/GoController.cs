@@ -15,7 +15,7 @@ public class GoController : Controller
     [HttpGet]
     [Route("/{url}")]
     public RedirectResult Index(string url)
-    { 
+    {
         var redirect = _goLinkService.GetUrlByName(url);
         return Redirect(redirect);
     } 

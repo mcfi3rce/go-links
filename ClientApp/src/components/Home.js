@@ -4,12 +4,12 @@ class Form extends React.Component {
     state = { 
         userName: 'adam_mcpherson',
         source: '',
-        target: ''};
+        target: '',
+        success: true};
     
     handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log("SUBMIT!!!");
         const response = await fetch('go',{
             method: 'POST',
             headers: {
@@ -20,12 +20,12 @@ class Form extends React.Component {
                 source: this.state.source,
                 target: this.state.target})
         });
-        console.log(response);
+        this.setState({success: true});
 
     };
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} >
                 Short Link
                 <input
                     type="text"
@@ -44,6 +44,7 @@ class Form extends React.Component {
                     required
                 /> 
                 <button>Create Link</button>
+                { this.state.success ? <div style={{color: "red"}}>Success!</div> : null}
             </form>
         );
     }

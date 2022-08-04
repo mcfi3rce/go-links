@@ -30,6 +30,7 @@ export class Urls extends Component {
               <td>{url.source}</td>
               <td>{url.target}</td>
               <td>{url.date_added}</td>
+              <td><button>Delete</button></td>
             </tr>
           )}
         </tbody>
