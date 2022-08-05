@@ -5,6 +5,8 @@ services:
     image: postgres:14.4
     container_name: golink-postgres
     restart: always
+    volumes:
+      - ./db-scripts/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     environment:
