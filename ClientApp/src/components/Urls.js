@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Delete = ({ value}) => {
+const Delete = ({ value, refresh}) => {
   const state = {user_name: value.user_name, source: value.source};
 
   const deleteRow = async ({event}) => {
@@ -17,6 +17,7 @@ const Delete = ({ value}) => {
             source: state.source
         })
     });
+    refresh();
   }
 
   return (
@@ -44,7 +45,7 @@ export class Urls extends Component {
     this.setState({ urls: data, loading: false });
   }
 
-  static renderUrlsTable(urls) {
+  renderUrlsTable(urls) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -62,7 +63,7 @@ export class Urls extends Component {
               <td>{url.source}</td>
               <td>{url.target}</td>
               <td>{url.date_added}</td>
-              <td><Delete value={url}/></td>
+              <td><Delete value={url} refresh={this.populateUrlData}/></td>
             </tr>
           )}
         </tbody>
@@ -71,9 +72,7 @@ export class Urls extends Component {
   }
 
   render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Urls.renderUrlsTable(this.state.urls);
+    let contents = this.renderUrlsTable(this.state.urls);
 
     return (
       <div>
