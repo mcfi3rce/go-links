@@ -7,7 +7,7 @@ const Delete = ({ value, refresh}) => {
     console.log("DLETEEE!!");
     console.log(state);
 
-    const response = await fetch('go', {
+    const response = await fetch('golink', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export class Urls extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { urls: [], loading: true, refresh: this.populateUrlData() };
+    this.state = { urls: [], loading: true, refresh: this.populateUrlData };
   }
 
   componentDidMount() {
@@ -39,7 +39,7 @@ export class Urls extends Component {
   }
 
   populateUrlData = async () => {
-    const response = await fetch('go');
+    const response = await fetch('golink');
     const data = await response.json();
     console.log(data);
     this.setState({ urls: data, loading: false });

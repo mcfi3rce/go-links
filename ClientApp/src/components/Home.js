@@ -11,7 +11,7 @@ class Form extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch('go',{
+        const response = await fetch('golink',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
