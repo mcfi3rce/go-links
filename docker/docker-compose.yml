@@ -14,6 +14,16 @@ services:
       backend_services:
         aliases:
           - postgres.ps
-            
+  go-links:
+    image: go-links:latest
+    container_name: go
+    restart: always
+    ports:
+      - "8080:80"
+    networks: 
+      backend_services:
+        aliases:
+          - go-links.ps
+
 networks:
   backend_services:
