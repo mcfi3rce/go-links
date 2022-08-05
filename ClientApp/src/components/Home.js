@@ -5,7 +5,8 @@ class Form extends React.Component {
         userName: 'adam-mcpherson',
         source: '',
         target: '',
-        success: false};
+        showMessage: false,
+        message: ''};
     
     handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +21,14 @@ class Form extends React.Component {
                 source: this.state.source,
                 target: this.state.target})
         });
-        this.setState({success: true});
+        switch (response.status) {
+            case 500:
+                this.setState({showMessage: true, message: "This link already exists"});
+                break;
+            case 200:
+                this.setState({showMessage: true, message: "Success!!"});
+                break;
+        }
 
     };
     render() {
@@ -44,7 +52,7 @@ class Form extends React.Component {
                     required
                 /> 
                 <button>Create Link</button>
-                { this.state.success ? <div style={{color: "red"}}>Success!</div> : null}
+                { this.state.showMessage ? <div style={{color: "red"}}>{this.state.message}</div> : null}
             </form>
         );
     }

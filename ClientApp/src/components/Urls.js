@@ -1,16 +1,47 @@
 import React, { Component } from 'react';
-import {Delete} from "./Delete";
+
+const Delete = ({ value}) => {
+  const state = {user_name: value.user_name, source: value.source};
+
+  const deleteRow = async ({event}) => {
+    console.log("DLETEEE!!");
+    console.log(state);
+
+    const response = await fetch('go', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user_name: state.user_name,
+            source: state.source
+        })
+    });
+  }
+
+  return (
+      <button onClick={deleteRow} >
+        Delete
+      </button>);
+}
 
 export class Urls extends Component {
   static displayName = Urls.name;
 
   constructor(props) {
     super(props);
-    this.state = { urls: [], loading: true };
+    this.state = { urls: [], loading: true, refresh: this.populateUrlData() };
   }
 
   componentDidMount() {
     this.populateUrlData();
+  }
+
+  populateUrlData = async () => {
+    const response = await fetch('go');
+    const data = await response.json();
+    console.log(data);
+    this.setState({ urls: data, loading: false });
   }
 
   static renderUrlsTable(urls) {
@@ -31,7 +62,7 @@ export class Urls extends Component {
               <td>{url.source}</td>
               <td>{url.target}</td>
               <td>{url.date_added}</td>
-              <td><Delete source={"tests"}/></td>
+              <td><Delete value={url}/></td>
             </tr>
           )}
         </tbody>
@@ -52,10 +83,5 @@ export class Urls extends Component {
     );
   }
 
-  async populateUrlData() {
-    const response = await fetch('go');
-    const data = await response.json();
-    console.log(data);
-    this.setState({ urls: data, loading: false });
-  }
+  
 }
