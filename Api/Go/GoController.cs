@@ -13,7 +13,7 @@ public class GoController : Controller
     }
     // GET
     [HttpGet]
-    [Route("/{url}")]
+    [Route("[action]")]
     public RedirectResult Index(string url)
     {
         var redirect = _goLinkService.GetUrlByName(url);
@@ -29,6 +29,14 @@ public class GoController : Controller
     [HttpPost]
     public ActionResult CreateGoLink([FromBody] GoLink goLink)
     {
+        // TODO: put right response
         return _goLinkService.CreateGoLink(goLink) ? Ok() : BadRequest();
+    }
+
+    [HttpDelete]
+    public ActionResult DeleteGoLink([FromBody] GoLink goLink)
+    {
+        // TODO: put right response
+        return _goLinkService.DeleteGoLink(goLink) ? Ok() : BadRequest();
     }
 }

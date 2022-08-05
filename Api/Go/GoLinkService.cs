@@ -34,4 +34,9 @@ public class GoLinkService : IGoLinkService
         goLink.date_added = DateTime.Now;
         return _goLinkRepository.InsertGoLink(goLink);
     }
+
+    public bool DeleteGoLink(GoLink goLink)
+    {
+        return _goLinkRepository.DeleteGoLinkBySource(goLink.user_name, goLink.source);
+    }
 }

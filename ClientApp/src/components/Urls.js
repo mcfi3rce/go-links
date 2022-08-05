@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Delete} from "./Delete";
 
 export class Urls extends Component {
   static displayName = Urls.name;
@@ -25,12 +26,12 @@ export class Urls extends Component {
         </thead>
         <tbody>
           {urls.map(url =>
-            <tr key={url.source}>
+            <tr key={url.source} id={url.source}>
               <td>{url.user_name}</td>
               <td>{url.source}</td>
               <td>{url.target}</td>
               <td>{url.date_added}</td>
-              <td><button>Delete</button></td>
+              <td><Delete source={"tests"}/></td>
             </tr>
           )}
         </tbody>

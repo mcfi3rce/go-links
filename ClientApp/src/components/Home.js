@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class Form extends React.Component {
     state = { 
-        userName: 'adam_mcpherson',
+        userName: 'adam-mcpherson',
         source: '',
         target: '',
-        success: true};
+        success: false};
     
     handleSubmit = async (event) => {
         event.preventDefault();

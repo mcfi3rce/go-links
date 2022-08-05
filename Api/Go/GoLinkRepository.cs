@@ -29,9 +29,11 @@ public class GoLinkRepository : IGoLinkRepository
         return result > 0;
     }
 
-    public void DeleteGoLinkBySource(string userName, string source)
+    public bool DeleteGoLinkBySource(string userName, string source)
     {
-        throw new NotImplementedException();
+        var result = _db.Execute("DELETE FROM go_links WHERE source = @source AND user_name = @userName",
+            new { source, userName });
+        return result > 0;
     }
 
     public GoLink UpdateGoLink(string userName, string source)
