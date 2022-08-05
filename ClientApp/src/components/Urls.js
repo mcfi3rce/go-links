@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 
 const Delete = ({ value, refresh}) => {
   const state = {user_name: value.user_name, source: value.source};
@@ -46,22 +46,24 @@ export class Urls extends Component {
   }
 
   renderUrlsTable(urls) {
+     const sortByField = (field) => {this.setState({urls: urls.sort((a,b) => (a[field] > b[field]) ? 1: -1)})};
+     
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>User</th>
-            <th>Short Link</th>
+            <th onClick={() => sortByField('source')}>Short Link</th>
             <th>Target URL</th>
-            <th>Creation Date</th>
+            <th onClick={() => sortByField('user')}>User</th>
+            <th onClick={() => sortByField('creation_date')}>Creation Date</th>
           </tr>
         </thead>
         <tbody>
           {urls.map(url =>
             <tr key={url.source} id={url.source}>
-              <td>{url.user_name}</td>
               <td>{url.source}</td>
               <td>{url.target}</td>
+              <td>{url.user_name}</td>
               <td>{url.date_added}</td>
               <td><Delete value={url} refresh={this.populateUrlData}/></td>
             </tr>
