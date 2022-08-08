@@ -17,7 +17,7 @@ services:
         aliases:
           - postgres.ps
   go-links:
-    image: go-links:latest
+    image: mcfi3rce/go-links:x86
     container_name: go
     restart: always
     ports:
