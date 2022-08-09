@@ -17,9 +17,9 @@ class Form extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                user_name: this.state.userName,
-                source: this.state.source,
-                target: this.state.target})
+                user_name: this.state.userName.toLowerCase(),
+                source: this.state.source.toLowerCase(),
+                target: this.state.target.toLowerCase()})
         });
         switch (response.status) {
             case 500:

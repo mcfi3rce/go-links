@@ -76,6 +76,7 @@ export class Urls extends Component {
     return (
       <div>
         <h1 id="tabelLabel" >Existing Shortlinks</h1>
+          Search: <input></input>
         {contents}
       </div>
     );
