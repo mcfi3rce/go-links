@@ -4,8 +4,6 @@ const Delete = ({ value, refresh}) => {
   const state = {user_name: value.user_name, source: value.source};
 
   const deleteRow = async ({event}) => {
-    console.log("DLETEEE!!");
-    console.log(state);
 
     const response = await fetch('golink', {
         method: 'DELETE',
@@ -41,7 +39,6 @@ export class Urls extends Component {
   populateUrlData = async () => {
     const response = await fetch('golink');
     const data = await response.json();
-    console.log(data);
     this.setState({ urls: data, loading: false });
   }
 
