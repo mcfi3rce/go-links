@@ -12,7 +12,7 @@ const AppRoutes = [
     element: <Urls />
   },
   {
-    path: '/go/:url',
+    path: '/:url',
     element: <Go />
   }
 ];
