@@ -1,4 +1,47 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
+import TextField from "@mui/material/TextField";
+import './Urls.css'
+
+const UrlTable = ({ urls, populateUrlData}) => {
+  
+
+  
+  const sortByField = (field) => {
+    this.setState({urls: urls.sort((a, b) => (a[field] > b[field]) ? 1 : -1)})
+  };
+  // const filteredData = urls.filter((x) => {
+  //   if (this.state.inputText === '') {
+  //     return x;
+  //   } else {
+  //     return x.source.toLowerCase().includes(this.state.inputText) ||
+  //       x.target.toLowerCase().includes(this.state.inputText);
+  //   }
+  // })
+
+  return (
+    <table className='table table-striped' aria-labelledby="tabelLabel">
+      <thead>
+      <tr>
+        <th onClick={() => sortByField('source')}>Short Link</th>
+        <th>Target URL</th>
+        <th onClick={() => sortByField('user')}>User</th>
+        <th onClick={() => sortByField('creation_date')}>Creation Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      {urls.map(url =>
+        <tr key={url.source} id={url.source}>
+          <td>{url.source}</td>
+          <td>{url.target}</td>
+          <td>{url.user_name}</td>
+          <td>{url.date_added}</td>
+          <td><Delete value={url} refresh={populateUrlData}/></td>
+        </tr>
+      )}
+      </tbody>
+    </table>
+  );
+}
 
 const Delete = ({ value, refresh}) => {
   const state = {user_name: value.user_name, source: value.source};
@@ -29,7 +72,7 @@ export class Urls extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { urls: [], loading: true, refresh: this.populateUrlData };
+    this.state = { urls: [], loading: true, refresh: this.populateUrlData, inputText: ""};
   }
 
   componentDidMount() {
@@ -42,42 +85,29 @@ export class Urls extends Component {
     this.setState({ urls: data, loading: false });
   }
 
-  renderUrlsTable(urls) {
-     const sortByField = (field) => {this.setState({urls: urls.sort((a,b) => (a[field] > b[field]) ? 1: -1)})};
-     
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th onClick={() => sortByField('source')}>Short Link</th>
-            <th>Target URL</th>
-            <th onClick={() => sortByField('user')}>User</th>
-            <th onClick={() => sortByField('creation_date')}>Creation Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {urls.map(url =>
-            <tr key={url.source} id={url.source}>
-              <td>{url.source}</td>
-              <td>{url.target}</td>
-              <td>{url.user_name}</td>
-              <td>{url.date_added}</td>
-              <td><Delete value={url} refresh={this.populateUrlData}/></td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+  
 
   render() {
-    let contents = this.renderUrlsTable(this.state.urls);
-
+    let inputHandler = (e) => {
+      //convert input text to lower case
+      console.log(e.target.value)
+      this.state.inputText = e.target.value.toLowerCase();
+      this.renderUrlsTable(this.state.urls)
+    };
+      
     return (
-      <div>
+      <div className="main">
         <h1 id="tabelLabel" >Existing Shortlinks</h1>
-          Search: <input></input>
-        {contents}
+          <div className="search">
+              <TextField
+                  id="outlined-basic"
+                  onChange={inputHandler}
+                  variant="outlined"
+                  fullWidth
+                  label="Search"
+              />
+          </div>
+        <UrlTable urls={this.state.urls} populateUrlData={this.populateUrlData}/>
       </div>
     );
   }
