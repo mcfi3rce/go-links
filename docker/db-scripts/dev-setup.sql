@@ -31,3 +31,7 @@ VALUES ('microsoft', 'https://microsoft.com/', 'adam-mcpherson', now());
 
 INSERT INTO go_links (source, target, user_name, date_added)
 VALUES ('google', 'https://google.com/', 'adam-mcpherson', now());
+
+INSERT INTO go_links (source, target, user_name, date_added)
+VALUES ('lofi-girl', 'https://www.youtube.com/watch?v=jfKfPfyJRdk', 'adam-mcpherson', now());
+
