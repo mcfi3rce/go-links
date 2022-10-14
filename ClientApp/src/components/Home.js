@@ -10,15 +10,16 @@ const Home = () => {
         logout,
     } = useAuth0();
     
-    console.log("USER");
-    console.log(user);
     return (
       <div>
         <h1>Hello, shortlink world!</h1>
           {!isAuthenticated ?
               <button onClick={loginWithRedirect}>Log In</button>
               :
-              <Form userName={user.name}/>
+              <div>
+                  <Form userName={user.name}/>
+                  <button onClick={logout}> Log Out< /button>
+              </div>
           }
       </div>
     );
