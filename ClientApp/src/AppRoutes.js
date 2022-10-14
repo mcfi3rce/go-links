@@ -1,6 +1,6 @@
-import { Home } from "./components/Home";
+import Home from "./components/Home";
+import Go from "./components/Go";
 import {Urls} from "./components/Urls";
-import {Go} from "./components/Go";
 
 const AppRoutes = [
   {
