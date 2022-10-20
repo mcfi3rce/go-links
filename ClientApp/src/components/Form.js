@@ -19,9 +19,9 @@ const Form = (props) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        user_name: props.userName.toLowerCase(),
-        source: source.toLowerCase(),
-        target: target.toLowerCase(),
+        user_name: props.userName,
+        source: source,
+        target: target,
       }),
     });
 

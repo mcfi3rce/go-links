@@ -115,8 +115,7 @@ export class Urls extends Component {
   render() {
     let inputHandler = (e) => {
       //convert input text to lower case
-      console.log(e.target.value);
-      this.state.inputText = e.target.value.toLowerCase();
+      this.state.inputText = e.target.value;
       this.renderUrlsTable(this.state.urls);
     };
 
