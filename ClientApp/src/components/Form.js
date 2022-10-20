@@ -24,7 +24,6 @@ const Form = (props) => {
         target: target.toLowerCase(),
       }),
     });
-    console.log(response);
 
     switch (response.status) {
       case 500:

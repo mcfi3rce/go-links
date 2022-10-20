@@ -47,7 +47,7 @@ const UrlTable = ({ urls, populateUrlData }) => {
             <td>{url.date_added}</td>
             {isAuthenticated && (
               <>
-                {user.name === url.user_name && (
+                {user.name.trim() === url.user_name.trim() && (
                   <td>
                     <Delete value={url} refresh={populateUrlData} />
                   </td>
