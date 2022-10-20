@@ -52,11 +52,6 @@ const NavMenu = () => {
                 Profile
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/apis">
-                APIs
-              </NavLink>
-            </NavItem>
             {isAuthenticated && (
               <>
                 <NavItem>

@@ -1,5 +1,9 @@
-using Auth0.AspNetCore.Authentication;
+using System.Security.Claims;
+using DefaultNamespace;
 using GoLinks.Api;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +17,21 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 ConfigurationManager configuration = builder.Configuration;
-builder.Services.AddAuth0WebAppAuthentication(options =>
-{
-    options.Domain = configuration["Auth0:Domain"];
-    options.ClientId = configuration["Auth0:ClientId"];
-});
+var domain = $"https://{configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = domain;
+        options.Audience = configuration["Auth0:Audience"];
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = ClaimTypes.NameIdentifier
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 var app = builder.Build();
 
