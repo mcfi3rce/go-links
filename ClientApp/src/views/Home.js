@@ -1,9 +1,10 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Form from "../components/Form";
+import { getConfig } from "../config";
 
 const Home = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  let { user, isAuthenticated, loginWithRedirect } = useAuth0();
 
   return (
     <div>
@@ -11,7 +12,15 @@ const Home = () => {
       {!isAuthenticated ? (
         <div>
           <p>In order to create links please login.</p>
-          <button onClick={loginWithRedirect}>Log In</button>
+          <button
+            onClick={() =>
+              loginWithRedirect({
+                redirectUri: getConfig().domain,
+              })
+            }
+          >
+            Log In
+          </button>
         </div>
       ) : (
         <div>

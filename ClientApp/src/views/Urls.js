@@ -7,6 +7,9 @@ const UrlTable = ({ urls, populateUrlData }) => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [localUrls, setLocalUrls] = useState(urls);
 
+  const trimWhiteSpace = (text) => {
+    return text.split(" ").join("");
+  };
   const sortByField = (field) => {
     setLocalUrls(urls.sort((a, b) => (a[field] > b[field] ? 1 : -1)));
   };
@@ -45,9 +48,11 @@ const UrlTable = ({ urls, populateUrlData }) => {
             <td>{url.target}</td>
             <td>{url.user_name}</td>
             <td>{url.date_added}</td>
+
             {isAuthenticated && (
               <>
-                {user.name.trim() === url.user_name.trim() && (
+                {trimWhiteSpace(user.name) ===
+                  trimWhiteSpace(url.user_name) && (
                   <td>
                     <Delete value={url} refresh={populateUrlData} />
                   </td>

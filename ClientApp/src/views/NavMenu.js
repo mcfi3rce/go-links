@@ -10,9 +10,10 @@ import {
 import { Link } from "react-router-dom";
 import "./NavMenu.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { getConfig } from "../config";
 
 const NavMenu = () => {
-  const { isAuthenticated, logout } = useAuth0();
+  let { isAuthenticated, logout } = useAuth0();
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -56,7 +57,15 @@ const NavMenu = () => {
               <>
                 <NavItem>
                   <NavLink className="text-dark navLink">
-                    <div onClick={logout}>Logout</div>
+                    <div
+                      onClick={() =>
+                        logout({
+                          returnTo: getConfig().domain,
+                        })
+                      }
+                    >
+                      Logout
+                    </div>
                   </NavLink>
                 </NavItem>
               </>
