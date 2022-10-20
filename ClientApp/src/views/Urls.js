@@ -59,12 +59,15 @@ const UrlTable = ({ urls, populateUrlData }) => {
 
 const Delete = ({ value, refresh }) => {
   const state = { user_name: value.user_name, source: value.source };
+  const { getAccessTokenSilently } = useAuth0();
 
   const deleteRow = async ({ event }) => {
+    const token = await getAccessTokenSilently();
     const response = await fetch("golink", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         user_name: state.user_name,

@@ -11,7 +11,6 @@ const Form = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = await getAccessTokenSilently();
-    console.log(`Bearer ${token}`);
 
     const response = await fetch("golink", {
       method: "POST",
