@@ -21,7 +21,7 @@ services:
     container_name: go
     restart: always
     ports:
-      - "8080:80"
+      - "8085:80"
     networks: 
       backend_services:
         aliases:
