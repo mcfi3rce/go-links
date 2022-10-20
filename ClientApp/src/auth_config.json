@@ -2,6 +2,6 @@
   "domain": "dev-8dyangrf.us.auth0.com",
   "clientId": "hfAUCQ6bu5bqSTMjzt2Uu9OppAryY3tF",
   "audience":  "https://go-api.com",
-  "appOrigin": "https://localhost:44405/",
+  "appOrigin": "https://go.mcphersonmedia.net",
   "apiOrigin": "https://go-api.com"
 }
