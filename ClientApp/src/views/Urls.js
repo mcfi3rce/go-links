@@ -18,8 +18,7 @@ const UrlTable = ({ urls, populateUrlData }) => {
   //       x.target.toLowerCase().includes(this.state.inputText);
   //   }
   // })
-  console.log(user);
-  console.log(urls);
+
   return (
     <table className="table table-striped" aria-labelledby="tabelLabel">
       <thead>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoLinks.Api;
@@ -26,6 +27,7 @@ public class GoLinkController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public ActionResult CreateGoLink([FromBody] GoLink goLink)
     {
         // TODO: put right response
@@ -33,6 +35,7 @@ public class GoLinkController : Controller
     }
 
     [HttpDelete]
+    [Authorize]
     public ActionResult DeleteGoLink([FromBody] GoLink goLink)
     {
         // TODO: put right response

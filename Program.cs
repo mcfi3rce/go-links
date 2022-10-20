@@ -1,3 +1,4 @@
+using Auth0.AspNetCore.Authentication;
 using GoLinks.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<GoLinkService>();
 builder.Services.AddSingleton<GoLinkRepository>();
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+ConfigurationManager configuration = builder.Configuration;
+builder.Services.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = configuration["Auth0:Domain"];
+    options.ClientId = configuration["Auth0:ClientId"];
+});
 
 var app = builder.Build();
 
@@ -20,7 +31,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
