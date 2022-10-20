@@ -1,7 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Form from "../components/Form";
-import { getConfig } from "../config";
 
 const Home = () => {
   let { user, isAuthenticated, loginWithRedirect } = useAuth0();

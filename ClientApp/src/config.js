@@ -12,13 +12,14 @@ export function getConfig() {
       ? configJson.audience
       : null;
 
-  const domain =
+  const origin =
     process.env.NODE_ENV === "development"
-      ? "https://localhost:44405/"
-      : configJson.domain;
+      ? "https://localhost:44405"
+      : configJson.appOrigin;
 
   return {
-    domain: domain,
+    domain: configJson.domain,
+    appOrigin: origin,
     clientId: configJson.clientId,
     ...(audience ? { audience } : null),
   };
