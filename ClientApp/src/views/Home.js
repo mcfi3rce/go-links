@@ -15,7 +15,7 @@ const Home = () => {
           <button
             onClick={() =>
               loginWithRedirect({
-                redirectUri: getConfig().domain,
+                redirectUri: window.location.origin,
               })
             }
           >

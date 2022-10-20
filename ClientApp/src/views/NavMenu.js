@@ -60,7 +60,7 @@ const NavMenu = () => {
                     <div
                       onClick={() =>
                         logout({
-                          returnTo: getConfig().domain,
+                          returnTo: window.location.origin,
                         })
                       }
                     >
