@@ -11,7 +11,9 @@ export function getConfig() {
         configJson.audience && configJson.audience !== "YOUR_API_IDENTIFIER"
             ? configJson.audience
             : null;
-
+    
+    const domain = .env
+    
     return {
         domain: configJson.domain,
         clientId: configJson.clientId,
