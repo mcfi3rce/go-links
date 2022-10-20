@@ -45,10 +45,14 @@ const UrlTable = ({ urls, populateUrlData }) => {
             <td>{url.target}</td>
             <td>{url.user_name}</td>
             <td>{url.date_added}</td>
-            {user.name === url.user_name && (
-              <td>
-                <Delete value={url} refresh={populateUrlData} />
-              </td>
+            {isAuthenticated && (
+              <>
+                {user.name === url.user_name && (
+                  <td>
+                    <Delete value={url} refresh={populateUrlData} />
+                  </td>
+                )}
+              </>
             )}
           </tr>
         ))}
