@@ -1,7 +1,8 @@
-import Home from "./components/Home";
 import Go from "./components/Go";
-import { Urls } from "./components/Urls";
-import Profile from "./components/Profile";
+import ExternalApi from "./views/ExternalApi";
+import { Urls } from "./views/Urls";
+import Home from "./views/Home";
+import Profile from "./views/Profile";
 
 const AppRoutes = [
   {
@@ -19,6 +20,10 @@ const AppRoutes = [
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/apis",
+    element: <ExternalApi />,
   },
 ];
 
