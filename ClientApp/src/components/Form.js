@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Form = (props) => {
@@ -7,7 +7,13 @@ const Form = (props) => {
   const [source, setSource] = useState("");
   const [target, setTarget] = useState("");
   const { getAccessTokenSilently } = useAuth0();
-
+  
+  useEffect(() => {
+    if (props.url !== '') {
+      setSource(props.url);
+    }
+  }, [props.url]);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = await getAccessTokenSilently();
@@ -33,6 +39,10 @@ const Form = (props) => {
       case 200:
         setShowMessage(true);
         setMessage("SUCCESS!!!");
+        break;
+      default:
+        setShowMessage(false);
+        setMessage("");
         break;
     }
   };

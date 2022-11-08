@@ -23,6 +23,7 @@ public class GoLinkController : Controller
         }
         catch (Exception)
         {
+            HttpContext.Response.StatusCode = 404;
             return "";
         }
     } 

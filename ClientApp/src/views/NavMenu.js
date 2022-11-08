@@ -10,7 +10,6 @@ import {
 import { Link } from "react-router-dom";
 import "./NavMenu.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getConfig } from "../config";
 
 const NavMenu = () => {
   let { isAuthenticated, logout } = useAuth0();

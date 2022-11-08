@@ -1,12 +1,15 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import {useAuth0} from "@auth0/auth0-react";
 import Form from "../components/Form";
+import {useParams} from "react-router-dom";
 
-const Home = () => {
-  let { user, isAuthenticated, loginWithRedirect } = useAuth0();
+const CreateUrl = () => {
+  const { url } = useParams();
+  let {user, isAuthenticated, loginWithRedirect} = useAuth0();
+     
   return (
     <div>
-      <h1>Hello, shortlink world!</h1>
+      <h1>You discovered a link that doesn't exist!</h1>
+      <h2>Create your own destiny</h2>
       {!isAuthenticated ? (
         <div>
           <p>In order to create links please login.</p>
@@ -22,11 +25,10 @@ const Home = () => {
         </div>
       ) : (
         <div>
-          <Form userName={user.name} />
+          <Form userName={user.name} url={url}/>
         </div>
       )}
-    </div>
-  );
-};
+    </div>);
+}
 
-export default Home;
+export default CreateUrl;
