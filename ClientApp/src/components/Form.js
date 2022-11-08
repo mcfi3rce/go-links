@@ -42,7 +42,7 @@ const Form = (props) => {
       Short Link
       <input
         type="text"
-        value={source}
+        value={props.url ?? source}
         onChange={(event) => setSource(event.target.value)}
         placeholder="youtube"
         required

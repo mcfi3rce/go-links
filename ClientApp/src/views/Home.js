@@ -28,7 +28,7 @@ const Home = () => {
         </div>
       ) : (
         <div>
-          <Form userName={user.name} />
+          <Form userName={user.name} url={url}/>
         </div>
       )}
     </div>
