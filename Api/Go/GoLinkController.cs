@@ -15,9 +15,16 @@ public class GoLinkController : Controller
     // GET
     [HttpGet]
     [Route("{url}")]
-    public string Index(string url)
+    public string? Index(string url)
     {
-        return _goLinkService.GetUrlByName(url);
+        try
+        {
+            return _goLinkService.GetUrlByName(url).target;
+        }
+        catch (Exception)
+        {
+            return "";
+        }
     } 
     
     [HttpGet]

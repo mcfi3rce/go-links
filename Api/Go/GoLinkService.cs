@@ -7,20 +7,9 @@ public class GoLinkService : IGoLinkService
     {
         _goLinkRepository = goLinkRepository;
     } 
-    public string GetUrlByName(string url)
+    public GoLink GetUrlByName(string url)
     {
-        GoLink goLink;
-        try
-        {
-            goLink = _goLinkRepository.FindGoLinkBySource(url);
-        }
-        catch (Exception)
-        {
-            // TODO: figure out how not to hardcode this... 
-            return "https://localhost:44405/";
-        }
-
-        return goLink.target;
+        return _goLinkRepository.FindGoLinkBySource(url);
     }
 
     public List<GoLink> GetAllUrls()
