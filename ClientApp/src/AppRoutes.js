@@ -18,6 +18,10 @@ const AppRoutes = [
     element: <Go />,
   },
   {
+    path: "/:url/*",
+    element: <Go />,
+  },
+  {
     path: "/profile",
     element: <Profile />,
   },
