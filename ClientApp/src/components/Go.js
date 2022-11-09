@@ -3,25 +3,26 @@ import {useEffect} from "react";
 
 
 const Go = () => {
-  const {url, first, second} = useParams();
+  const {url} = useParams();
+  // We need to split out urls because URL encoded search params get decoded with slashes
+  const safeUrl = url.split('/')[0];
+  
   const navigate = useNavigate();
   // We are assuming params will always start from the 4th index
-  const replaceText = window.location.toString().split('/').slice(4)
+  // Added decoding because Firefox forces encoding with it's shortcut
+  const replaceText = decodeURIComponent(window.location).toString().split('/').slice(4);
 
   const getUrlBySource = async () => {
-    return await fetch(`golink/${url}`);
+    return await fetch(`golink/${safeUrl}`);
   }
 
   const doRegex = (text) => {
-    debugger;
-    // Find all the fields that need replacing
     const re = /\[\[\d*]]/g;
     const parameterList = Array.from(text.matchAll(re));
     parameterList.forEach((p, i) => {
       text = text.replace(p, replaceText[i]);
     });
     return text;
-    // assume they are already in order
   }
 
   getUrlBySource().then(async data => {
