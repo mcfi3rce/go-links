@@ -47,13 +47,13 @@ const NavMenu = () => {
                 Urls
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/profile">
-                Profile
-              </NavLink>
-            </NavItem>
             {isAuthenticated && (
               <>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/profile">
+                    Profile
+                  </NavLink>
+                </NavItem>
                 <NavItem>
                   <NavLink className="text-dark navLink">
                     <div
