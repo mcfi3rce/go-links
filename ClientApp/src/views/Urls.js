@@ -1,11 +1,11 @@
-import React, { Component, useState } from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import "./Urls.css";
-import { useAuth0 } from "@auth0/auth0-react";
+import {useAuth0} from "@auth0/auth0-react";
 
-const UrlTable = ({ urls, populateUrlData }) => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [localUrls, setLocalUrls] = useState(urls);
+const UrlTable = ({urls, populateUrlData}) => {
+  const {user, isAuthenticated} = useAuth0();
+  const [, setLocalUrls] = useState(urls);
 
   const trimWhiteSpace = (text) => {
     return text.split(" ").join("");
@@ -20,57 +20,55 @@ const UrlTable = ({ urls, populateUrlData }) => {
   //     return x.source.toLowerCase().includes(this.state.inputText) ||
   //       x.target.toLowerCase().includes(this.state.inputText);
   //   }
-  // })
+  // });
 
   return (
     <table className="table table-striped" aria-labelledby="tabelLabel">
       <thead>
-        <tr>
-          <th onClick={() => sortByField("source")} className="clickable">
-            Short Link
-          </th>
-          <th>Target URL</th>
-          <th onClick={() => sortByField("user")} className="clickable">
-            User
-          </th>
-          <th
-            onClick={() => sortByField("creation_date")}
-            className="clickable"
-          >
-            Creation Date
-          </th>
-        </tr>
+      <tr>
+        <th onClick={() => sortByField("source")} className="clickable">
+          Short Link
+        </th>
+        <th>Target URL</th>
+        <th onClick={() => sortByField("user")} className="clickable">
+          User
+        </th>
+        <th
+          onClick={() => sortByField("creation_date")}
+          className="clickable"
+        >
+          Creation Date
+        </th>
+      </tr>
       </thead>
       <tbody>
-        {urls.map((url) => (
-          <tr key={url.source} id={url.source}>
-            <td>{url.source}</td>
-            <td>{url.target}</td>
-            <td>{url.user_name}</td>
-            <td>{url.date_added}</td>
+      {urls.map((url) => (
+        <tr key={url.source} id={url.source}>
+          <td>{url.source}</td>
+          <td>{url.target}</td>
+          <td>{url.user_name}</td>
+          <td>{url.date_added}</td>
 
-            {isAuthenticated && (
-              <>
-                {trimWhiteSpace(user.name) ===
-                  trimWhiteSpace(url.user_name) && (
-                  <td>
-                    <Delete value={url} refresh={populateUrlData} />
-                  </td>
-                )}
-              </>
-            )}
-          </tr>
-        ))}
+          {isAuthenticated && <>
+            {trimWhiteSpace(user.name) ===
+              trimWhiteSpace(url.user_name) && (
+                <td>
+                  <Delete value={url} refresh={populateUrlData}/>
+                </td>
+              )}
+          </>}
+        </tr>
+      ))}
       </tbody>
     </table>
   );
 };
 
-const Delete = ({ value, refresh }) => {
-  const state = { user_name: value.user_name, source: value.source };
-  const { getAccessTokenSilently } = useAuth0();
+const Delete = ({value, refresh}) => {
+  const state = {user_name: value.user_name, source: value.source};
+  const {getAccessTokenSilently} = useAuth0();
 
-  const deleteRow = async ({ event }) => {
+  const deleteRow = async ({event}) => {
     const token = await getAccessTokenSilently();
     const response = await fetch("golink", {
       method: "DELETE",
@@ -89,53 +87,52 @@ const Delete = ({ value, refresh }) => {
   return <button onClick={deleteRow}>Delete</button>;
 };
 
-export class Urls extends Component {
-  static displayName = Urls.name;
+const Urls = () => {
+  const [urls, setUrls] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [inputText, setInputText] = useState("");
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      urls: [],
-      loading: true,
-      refresh: this.populateUrlData,
-      inputText: "",
-    };
+  const refresh = () => {
+    populateUrlData();
   }
 
-  componentDidMount() {
-    this.populateUrlData();
-  }
+  useEffect(() => {
+    populateUrlData();
+  })
 
-  populateUrlData = async () => {
+  const populateUrlData = async () => {
     const response = await fetch("golink");
     const data = await response.json();
-    this.setState({ urls: data, loading: false });
+    setUrls(data);
+    setLoading(false);
   };
 
-  render() {
-    let inputHandler = (e) => {
-      //convert input text to lower case
-      this.state.inputText = e.target.value;
-      this.renderUrlsTable(this.state.urls);
-    };
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    this.state.inputText = e.target.value;
+    // This is where the updates will need to happen
+    // to get the search to work
+    // this.renderUrlsTable(this.state.urls);
+  };
 
-    return (
-      <div className="main">
-        <h1 id="tabelLabel">Existing Shortlinks</h1>
-        <div className="search">
-          <TextField
-            id="outlined-basic"
-            onChange={inputHandler}
-            variant="outlined"
-            fullWidth
-            label="Search"
-          />
-        </div>
-        <UrlTable
-          urls={this.state.urls}
-          populateUrlData={this.populateUrlData}
+  return (
+    <div className="main">
+      <h1 id="tabelLabel">Existing Shortlinks</h1>
+      <div className="search">
+        <TextField
+          id="outlined-basic"
+          onChange={inputHandler}
+          variant="outlined"
+          fullWidth
+          label="Search"
         />
       </div>
-    );
-  }
-}
+      <UrlTable
+        urls={urls}
+        populateUrlData={populateUrlData}
+      />
+    </div>
+  );
+};
+
+export default Urls;

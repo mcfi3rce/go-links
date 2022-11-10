@@ -1,8 +1,8 @@
 import Go from "./components/Go";
-import { Urls } from "./views/Urls";
 import Home from "./views/Home";
 import Profile from "./views/Profile";
 import CreateUrl from "./views/CreateUrl";
+import Urls from "./views/Urls";
 
 const AppRoutes = [
   {
